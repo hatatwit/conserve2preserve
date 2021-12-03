@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <!--- Welcome -->
+    <section class="welcoming">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-5 col-lg-6 order-md-2">
+                <img src="{% static 'image/barcode.png' %}" class="mx-auto d-block" width="300" height="300" alt="welcome">
+            </div>
+            <div class="col-12 col-md-7 col-lg-6 order-md-1 aos-init aos-animate" data-aos="fade-up">
+                <!-- Heading -->
+                <h1 class="display-6 text-center text-md-left">
+                    Welcome to Conserve 2 Preserve
+                </h1>
+                <!-- Text -->
+                <p class="lead text-center text-md-left text-muted mb-6 mb-lg-8">With over ### products on our site, we can help you find ethical and green products based on our scientific ratings by scanning or browsing product barcodes.</p>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#exampleModal">
+                    Scan
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <form method=POST enctype="multipart/form-data" action="#">
+                                {% csrf_token %}
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Upload Image</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="custom-file">
+
+                                        <input type="file" name="image" class="custom-file-input" id="customFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Upload</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logo list -->
+    <br><hr>
+    <section class="logo-list">
+        <div class="row">
+            <div class="col-lg-2 col-md-4 col-6">
+                <a href="#"><img src="//logo.clearbit.com/patagonia.com" class="img-fluid" alt="Bluehost logo"></a>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6">
+                <a href="#"><img src="//logo.clearbit.com/ethique.com" class="img-fluid" alt="Hostgator logo"></a>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6">
+                <a href="#"><img src="//logo.clearbit.com/youthtothepeople.com" class="img-fluid" alt="Green Geeks
+                    logo"></a>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6">
+                <a href="#"><img src="//logo.clearbit.com/blueland.com" class="img-fluid" alt="WordPress logo"></a>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6">
+                <a href="#"><img src="//logo.clearbit.com/facetheory.com" class="img-fluid" alt="DreamHost
+                    logo"></a>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6">
+                <a href="#"><img src="//logo.clearbit.com/elatebeauty.com" class="img-fluid" alt="Hostinger
+                    logo"></a>
+            </div>
+            <p>{{ img }}</p>
+        </div>
+    </section>
+
+    <!-- Product recommendations -->
+    <section class="product-recommend">
+        <h4 class="text-center my-3">Product Recommendations</h4>
+        <div class="d-flex flex-row flex-nowrap overflow-auto">
+            {% for product in productDB %}
+                <div class="card card-block mx-3 rounded" style="min-width: 180px; height: 300px">
+                    <img class="card-img" src="{{ product.image }}">
+                    <div class="card-body">
+                        <h6 class="card-title"><a href="{% url 'productDetail' product.barcode %}">{{ product.name }}</a></h6>
+                        {% if product.grade == "None" %}
+                            <span class="badge badge-pill badge-dark">{{ product.grade }}</span>
+                        {% elif product.grade >= 80 %}
+                            <span class="badge badge-pill badge-success">{{ product.grade }}</span>
+                        {% elif product.grade < 50 %}
+                            <span class="badge badge-pill badge-danger">{{ product.grade }}</span>
+                        {% else %}
+                            <span class="badge badge-pill badge-warning">{{ product.grade }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Our Team -->
+    <section class="product-recommend">
+        <div class="py-5 team4">
+            <div class="container">
+                <div class="row justify-content-center mb-4">
+                    <div class="col-md-7 text-center">
+                        <h3 class="mb-4">Our Team</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- column  -->
+                    <div class="col-lg-3 mb-4">
+                        <!-- Row -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <img src="https://cdn.iconscout.com/icon/free/png-256/boy-avatar-4-1129037.png" alt="member#1" class="img-fluid rounded-circle" />
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <div class="pt-2">
+                                    <h5 class="mt-4 font-weight-medium mb-0">Member#1</h5>
+                                    <h6 class="subtitle mb-3">Job#1</h6>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 mb-4">
+                        <!-- Row -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <img src="https://cdn.iconscout.com/icon/free/png-256/boy-avatar-4-1129037.png" alt="member#2" class="img-fluid rounded-circle" />
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <div class="pt-2">
+                                    <h5 class="mt-4 font-weight-medium mb-0">Member#2</h5>
+                                    <h6 class="subtitle mb-3">Job#2</h6>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 mb-4">
+                        <!-- Row -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <img src="https://cdn.iconscout.com/icon/free/png-256/boy-avatar-4-1129037.png" alt="member#3" class="img-fluid rounded-circle" />
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <div class="pt-2">
+                                    <h5 class="mt-4 font-weight-medium mb-0">Member#3</h5>
+                                    <h6 class="subtitle mb-3">Job#3</h6>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 mb-4">
+                        <!-- Row -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <img src="https://cdn.iconscout.com/icon/free/png-256/boy-avatar-4-1129037.png" alt="member#4" class="img-fluid rounded-circle" />
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <div class="pt-2">
+                                    <h5 class="mt-4 font-weight-medium mb-0">Member#4</h5>
+                                    <h6 class="subtitle mb-3">Job#4</h6>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+

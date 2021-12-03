@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Shopping Cart{% endblock title %}
+{% block content %}
+    <section class="py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-12">
+                    <h3 class="display-5 mb-2 text-center">Shopping Cart</h3>
+                    <p class="mb-5 text-center">
+                        <i class="text-info font-weight-bold">{{ order.get_cart_item }}</i> items in your cart</p>
+                    <table id="shoppingCart" class="table table-condensed table-responsive">
+                        <thead>
+                        <tr>
+                            <th style="width:70%">Product</th>
+                            <th style="width:20%">Grade</th>
+                            <th style="width:16%"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in cart %}
+                            <tr>
+                                <td data-th="Product">
+                                    <div class="row">
+                                        <div class="col-md-3 text-left">
+                                            <img src="{{ item.product.image }}" alt="" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                                        </div>
+                                        <div class="col-md-9 text-left mt-sm-2">
+                                            <h5>{{ item.product.name }}</h5>
+                                            <p class="font-weight-light">{{ item.product.brand }}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-th="Product Grade">
+                                    {% if item.product.grade == "None" %}
+                                        <span class="badge badge-pill badge-dark">{{ item.product.grade }}</span>
+                                    {% elif item.product.grade >= 80 %}
+                                        <span class="badge badge-pill badge-success">{{ item.product.grade }}</span>
+                                    {% elif item.product.grade < 50 %}
+                                        <span class="badge badge-pill badge-danger">{{ item.product.grade }}</span>
+                                    {% else %}
+                                        <span class="badge badge-pill badge-warning">{{ item.product.grade }}</span>
+                                    {% endif %}
+                                </td>
+                                <td class="actions" data-th="">
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-outline-danger">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+                                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="float-right text-right">
+                        {% if order.get_cart_average == "None" %}
+                            <h4>Average Grade: <span class="badge badge-pill badge-dark">{{ order.get_cart_average }}</span></h4>
+                        {% elif order.get_cart_average >= 80 %}
+                            <h4>Average Grade: <span class="badge badge-pill badge-success">{{ order.get_cart_average }}</span></h4>
+                        {% elif order.get_cart_average < 50 %}
+                            <h4>Average Grade: <span class="badge badge-pill badge-danger">{{ order.get_cart_average }}</span></h4>
+                        {% else %}
+                            <h4>Average Grade: <span class="badge badge-pill badge-warning">{{ order.get_cart_average }}</span></h4>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

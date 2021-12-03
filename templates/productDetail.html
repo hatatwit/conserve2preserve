@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% block title %}{{ productDetail.title }}{% endblock title %}
+{% block content %}
+    <div class="product-content">
+        <div class="row">
+            <div class="col-md-5">
+                <h5>{{ item.name }}</h5>
+                <img src="{{ item.image }}" alt="productImage" width="300" height="300">
+                <div class="progress my-2">
+                    {% if item.grade == "None" %}
+                        <div class="progress-bar bg-dark" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">{{ item.grade }}</div>
+                    {% elif item.grade >= 80 %}
+                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ item.grade }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ item.grade }}%">{{ item.grade }}%</div>
+                    {% elif item.grade < 50 %}
+                        <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="{{ item.grade }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ item.grade }}%">{{ item.grade }}%</div>
+                    {% else %}
+                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ item.grade }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ item.grade }}%">{{ item.grade }}%</div>
+                    {% endif %}
+                </div>
+                <form method="POST" action="{% url 'productDetail' item.barcode %}">
+			        {% csrf_token %}
+                    <button type="submit" class="btn btn-dark my-2">Add to bag</button>
+		        </form>
+            </div>
+            <div class="col-md-7">
+                <div id="accordion">
+
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Description
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body">
+                                <p><span class="font-weight-bold">Category:</span> {}</p>
+                                <p><span class="font-weight-bold">Description:</span>{}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header" id="headingTwo">
+                            <h5 class="mb-0">
+                                <button class="btn collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Ingredient
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="card-body">
+                                <p>{{ item.ingredient}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header" id="headingThree">
+                            <h5 class="mb-0">
+                                <button class="btn collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Environment
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <h4>{{ item.packaging }}</h4>
+                                        <ul class="timeline">
+                                            <li>
+                                                <a target="_blank" href="">Production</a>
+                                                <p>{{ item.packaging.production }}</p>
+                                            </li>
+                                            <li>
+                                                <a target="_blank" href="">Recycle</a>
+                                                <p>{{ item.packaging.recycle }}</p>
+                                            </li>
+                                            <li>
+                                                <a target="_blank" href="">Common Products</a>
+                                                <p>{{ item.packaging.commonProduct }}</p>
+                                            </li>
+                                            <li>
+                                                <a target="_blank" href="">Recyclable</a>
+                                                {% if item.packaging.recyclable == True %}
+                                                    <p>Yes</p>
+                                                {% else %}
+                                                    <p>No</p>
+                                                {% endif %}
+                                            </li>
+                                            <li>
+                                                <a href="">Biodegradable</a>
+                                                {% if item.packaging.biodegradable == True %}
+                                                    <p>Yes</p>
+                                                {% else %}
+                                                    <p>No</p>
+                                                {% endif %}
+                                            </li>
+                                            <li>
+                                                <a href="#">Time to Decompose</a>
+                                                <p>{{ item.packaging.time }}</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header" id="headingFour">
+                            <h5 class="mb-0">
+                                <button class="btn collapsed" data-toggle="collapse" data-target="#collapseFour"
+                                        aria-expanded="false" aria-controls="collapseFour">
+                                    Brand
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                            <div class="card-body">
+                                <p>{{ item.brand }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
