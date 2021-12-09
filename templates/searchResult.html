@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Search Result{% endblock title %}
+{% block content %}
+    <section class="search-content">
+        {% if keyword %}
+            <h2 class="mb-5">Product Categories</h2>
+            <div class="row">
+                {% for item in items %}
+                    <div class="col-lg-3 mb-4">
+                        <div class="card rounded mx-0" style=" width: 230px; height: 330px">
+                            <img class="card-img" src="{{ item.image }}">
+                            <div class="card-body">
+                                <h6 class="card-title"><a href="{% url 'productDetail' item.barcode %}">{{ item.name }}</a></h6>
+                                {% if item.grade == "None" %}
+                                    <span class="badge badge-pill badge-dark">{{ item.grade }}</span>
+                                {% elif item.grade >= 80 %}
+                                    <span class="badge badge-pill badge-success">{{ item.grade }}</span>
+                                {% elif item.grade < 50 %}
+                                    <span class="badge badge-pill badge-danger">{{ item.grade }}</span>
+                                {% else %}
+                                    <span class="badge badge-pill badge-warning">{{ item.grade }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <h4>No products match your search!</h4>
+        {% endif %}
+    </section>
+{% endblock content %}

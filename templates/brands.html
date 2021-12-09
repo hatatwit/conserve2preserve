@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Brands{% endblock title %}
+{% block content %}
+    <section class="brands-content">
+        <h2 class="mb-5">All Brands</h2>
+        <table class="table rounded">
+            <thead>
+            <tr>
+                <th scope="col">Brands</th>
+                <th scope="col">Cruelty-free</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for brand in brandDB %}
+                <tr>
+                    <td><a href="{% url 'brand' brand.name %}">{{ brand.name }}</a></td>
+                    <td>
+                        {% if brand.crueltyFree == True %}
+                            <i class="bi bi-check-lg text-success"></i>
+                        {% else %}
+                            <i class="bi bi-x-lg text-danger"></i>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+{% endblock content %}

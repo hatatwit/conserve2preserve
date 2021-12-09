@@ -3,6 +3,9 @@ from .models import *
 
 admin.site.register(Customer)
 admin.site.register(Packaging)
+admin.site.register(Brand)
+admin.site.register(ToxicIngredient)
+admin.site.register(Categorie)
 admin.site.register(Product)
 admin.site.register(Order)
 admin.site.register(OrderItem)

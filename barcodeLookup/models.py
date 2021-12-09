@@ -13,7 +13,6 @@ class Packaging(models.Model):
     name = models.CharField(max_length=200, null=True)
     production = models.TextField(max_length=200, null=True)
     recycle = models.TextField(max_length=200, null=True)
-    commonProduct = models.TextField(max_length=150, null=True)
     recyclable = models.BooleanField(null=True)
     biodegradable = models.BooleanField(null=True)
     time = models.CharField(max_length=50, null=True)
@@ -21,13 +20,38 @@ class Packaging(models.Model):
     def __str__(self):
         return self.name
 
+class Categorie(models.Model):
+    category = models.CharField(max_length=100, null=True)
+    image = models.CharField(max_length=500, blank=True, null=True)
+
+    def __str__(self):
+        return self.category
+
+class Brand(models.Model):
+    name = models.CharField(max_length=100, null=True)
+    intro = models.TextField(null=True)
+    parentCompany = models.CharField(max_length=100, blank=True)
+    crueltyFree = models.BooleanField(null=True)
+
+    def __str__(self):
+        return self.name
+
+class ToxicIngredient(models.Model):
+    name = models.CharField(max_length=150, null=True)
+    info = models.TextField(null=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Product(models.Model):
     barcode = models.IntegerField()
-    grade = models.IntegerField()
+    grade = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
     name = models.TextField(max_length=200, null=True)
-    brand = models.TextField(max_length=100, null=True)
     ingredient = models.TextField(null=True)
-    packaging = models.ForeignKey(Packaging, on_delete=models.SET_NULL, blank=True, null=True)
+    brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, blank=True, null=True, default=None)
+    packaging = models.ForeignKey(Packaging, on_delete=models.SET_NULL, blank=True, null=True, default=None)
+    category = models.ForeignKey(Categorie, on_delete=models.SET_NULL, blank=True, null=True, default=None)
     image = models.CharField(max_length=500, blank=True, null=True)
 
     def __str__(self):
@@ -61,3 +85,6 @@ class OrderItem(models.Model):
     def get_grade(self):
         grade = self.product.grade * self.quantity
         return grade
+
+    def __str__(self):
+        return self.product.name

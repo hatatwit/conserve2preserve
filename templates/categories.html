@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Categories{% endblock title %}
+{% block content %}
+    <section class="categories-content">
+        <h2 class="mb-4">Product Categories</h2>
+        <div class="row">
+            {% for category, countProducts in context %}
+                <div class="col-xl-3 col-lg-6">
+                    <div class="card my-3 mb-xl-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title"><a href="{% url 'categoryView' category.category %}">{{ category.category }}</a></h5>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape rounded-circle">
+                                        <img src="{{ category.image }}" alt="category-icon" style="width: 50px; height: 50px">
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-muted text-sm">
+                                <span class="mr-2"><i class="fa fa-arrow-up"></i>{{ countProducts.products_count }}</span>
+                                <span class="text-nowrap">items</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock content %}

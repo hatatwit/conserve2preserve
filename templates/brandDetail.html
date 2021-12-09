@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ brand.name }}{% endblock title %}
+{% block content %}
+    <section class="brandDetail-content">
+
+        <!-- Brand -->
+        <div class="row align-items-center">
+            <div class="col-6 col-md-4">
+                <img src="//logo.clearbit.com/{{ brand.name }}.com" class="mx-auto d-block" width="150px" height="150px" alt="brand">
+            </div>
+            <div class="col-12 col-md-8">
+                <!-- Brand Header -->
+                <h4 class="display-6 text-center text-md-left">
+                    {{ brand.name }}
+                </h4>
+                <!-- Brand Description -->
+                <p class="lead text-center text-md-left text-muted mb-6 mb-lg-8">{{ brand.intro }}</p>
+                <p><span class="font-weight-bold">Parent Company:</span> {{ brand.parentCompany }}</p>
+                <p>
+                    <span class="font-weight-bold">Cruelty-free: </span>
+                    {% if brand.crueltyFree == True %}
+                        <i class="bi bi-check-lg text-success"></i>
+                    {% else %}
+                        <i class="bi bi-x-lg text-danger"></i>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        <hr>
+
+        <!-- Brand products -->
+        <h4 class="text-center my-4">Products</h4>
+        <div class="d-flex flex-row flex-nowrap overflow-auto">
+            {% for product in products %}
+                <div class="card card-block mx-3 rounded" style="width: 230px; height: 350px">
+                    <img class="card-img" src="{{ product.image }}">
+                    <div class="card-body">
+                        <h6 class="card-title"><a href="{% url 'productDetail' product.barcode %}">{{ product.name }}</a></h6>
+                        {% if product.grade == "None" %}
+                            <span class="badge badge-pill badge-dark">{{ product.grade }}</span>
+                        {% elif product.grade >= 80 %}
+                            <span class="badge badge-pill badge-success">{{ product.grade }}</span>
+                        {% elif product.grade < 50 %}
+                            <span class="badge badge-pill badge-danger">{{ product.grade }}</span>
+                        {% else %}
+                            <span class="badge badge-pill badge-warning">{{ product.grade }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </section>
+{% endblock content %}
