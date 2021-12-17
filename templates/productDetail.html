@@ -27,7 +27,7 @@
                         </div>
                     {% endif %}
                 </div>
-                <form method="POST" action="{% url 'productDetail' data.barcode %}">
+                <form method="POST" action="{% url 'product-detail' data.barcode %}">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-dark my-2">Add to bag</button>
                 </form>
@@ -102,10 +102,10 @@
                                             </li>
                                             <li>
                                                 {% if product.packaging.recyclable == True %}
-                                                    <p class="font-weight-bold">Recyclable<span class="badge badge-success float-right">15/15</span></p>
+                                                    <p class="font-weight-bold">Recyclable<span class="badge badge-success float-right">20/20</span></p>
                                                     <p>Yes</p>
                                                 {% else %}
-                                                    <p class="font-weight-bold">Recyclable<span class="badge badge-success float-right">0/15</span></p>
+                                                    <p class="font-weight-bold">Recyclable<span class="badge badge-success float-right">0/20</span></p>
                                                     <p>No</p>
                                                 {% endif %}
                                             </li>
@@ -115,10 +115,10 @@
                                             </li>
                                             <li>
                                                 {% if product.packaging.biodegradable == True %}
-                                                    <p class="font-weight-bold">Biodegradable<span class="badge badge-success float-right">15/15</span></p>
+                                                    <p class="font-weight-bold">Biodegradable<span class="badge badge-success float-right">20/20</span></p>
                                                     <p>Yes</p>
                                                 {% else %}
-                                                    <p class="font-weight-bold">Biodegradable<span class="badge badge-danger float-right">0/15</span></p>
+                                                    <p class="font-weight-bold">Biodegradable<span class="badge badge-danger float-right">0/20</span></p>
                                                     <p>No</p>
                                                 {% endif %}
                                             </li>
@@ -145,10 +145,10 @@
                         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
                             <div class="card-body">
                                 {% if product.brand.crueltyFree == True %}
-                                    <h5 class="font-weight-bold">{{ product.brand.name }}<span class="badge badge-success float-right">10/10</span></h5>
+                                    <h5 class="font-weight-bold">{{ product.brand.name }}<span class="badge badge-success float-right">15/15</span></h5>
                                     <p class="font-weight-bold">Cruelty-free: <i class="bi bi-check-lg text-success"></i></p>
                                 {% else %}
-                                    <p class="font-weight-bold">{{ product.brand.name }}<span class="badge badge-danger float-right">0/10</span></p>
+                                    <p class="font-weight-bold">{{ product.brand.name }}<span class="badge badge-danger float-right">0/15</span></p>
                                     <p class="font-weight-bold">Cruelty-free: <i class="bi bi-x-lg text-danger"></i></p>
                                 {% endif %}
                                 <p>{{ product.brand.intro }}</p>

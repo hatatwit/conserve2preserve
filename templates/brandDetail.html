@@ -36,7 +36,7 @@
                 <div class="card card-block mx-3 rounded" style="width: 230px; height: 350px">
                     <img class="card-img" src="{{ product.image }}">
                     <div class="card-body">
-                        <h6 class="card-title"><a href="{% url 'productDetail' product.barcode %}">{{ product.name }}</a></h6>
+                        <h6 class="card-title"><a href="{% url 'product-detail' product.barcode %}">{{ product.name }}</a></h6>
                         {% if product.grade == "None" %}
                             <span class="badge badge-pill badge-dark">{{ product.grade }}</span>
                         {% elif product.grade >= 80 %}

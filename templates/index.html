@@ -22,7 +22,7 @@
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <form method=POST enctype="multipart/form-data" action="{% url 'scanProduct' %}">
+                            <form method=POST enctype="multipart/form-data" action="{% url 'scan-product' %}">
                                 {% csrf_token %}
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Upload Image</h5>
@@ -87,7 +87,7 @@
                 <div class="card card-block mx-3 rounded" style="min-width: 180px; height: 300px">
                     <img class="card-img" src="{{ product.image }}">
                     <div class="card-body">
-                        <h6 class="card-title"><a href="{% url 'productDetail' product.barcode %}">{{ product.name }}</a></h6>
+                        <h6 class="card-title"><a href="{% url 'product-detail' product.barcode %}">{{ product.name }}</a></h6>
                         {% if product.grade == "None" %}
                             <span class="badge badge-pill badge-dark">{{ product.grade }}</span>
                         {% elif product.grade >= 80 %}
@@ -122,7 +122,7 @@
                             </div>
                             <div class="col-md-12 text-center">
                                 <div class="pt-2">
-                                    <h5 class="mt-4 font-weight-medium mb-0">Member#1</h5>
+                                    <h5 class="mt-4 font-weight-medium mb-2">Member#1</h5>
                                     <h6 class="subtitle mb-3">Job#1</h6>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                                 </div>
@@ -137,7 +137,7 @@
                             </div>
                             <div class="col-md-12 text-center">
                                 <div class="pt-2">
-                                    <h5 class="mt-4 font-weight-medium mb-0">Member#2</h5>
+                                    <h5 class="mt-4 font-weight-medium mb-2">Member#2</h5>
                                     <h6 class="subtitle mb-3">Job#2</h6>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                                 </div>
@@ -152,7 +152,7 @@
                             </div>
                             <div class="col-md-12 text-center">
                                 <div class="pt-2">
-                                    <h5 class="mt-4 font-weight-medium mb-0">Member#3</h5>
+                                    <h5 class="mt-4 font-weight-medium mb-2">Member#3</h5>
                                     <h6 class="subtitle mb-3">Job#3</h6>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                                 </div>
@@ -167,7 +167,7 @@
                             </div>
                             <div class="col-md-12 text-center">
                                 <div class="pt-2">
-                                    <h5 class="mt-4 font-weight-medium mb-0">Member#4</h5>
+                                    <h5 class="mt-4 font-weight-medium mb-2">Member#4</h5>
                                     <h6 class="subtitle mb-3">Job#4</h6>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                                 </div>

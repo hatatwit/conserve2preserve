@@ -54,6 +54,32 @@ class Product(models.Model):
     category = models.ForeignKey(Categorie, on_delete=models.SET_NULL, blank=True, null=True, default=None)
     image = models.CharField(max_length=500, blank=True, null=True)
 
+    def save(self, *args, **kwargs):
+
+        self.grade = 100
+        eachIngredient = round(((self.ingredient).count(",") + 1)/45, 2)
+
+        # Grading bases on ingredient
+        for ingredient in ToxicIngredient.objects.all():
+            if ingredient.name in str(self.ingredient):
+                self.grade -= eachIngredient
+
+        # Grading bases on packaging
+        if self.packaging.recyclable == False and self.packaging.biodegradable == False:
+            self.grade -= 40
+        elif self.packaging.recyclable == False or self.packaging.biodegradable == False:
+            self.grade -= 20
+        else:
+            pass
+
+        # Grading bases on company cruelty-free
+        if self.brand.crueltyFree == False:
+            self.grade -=15
+        else:
+            pass
+
+        super(Product, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.name
 

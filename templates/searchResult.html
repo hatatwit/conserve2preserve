@@ -2,7 +2,7 @@
 {% block title %}Search Result{% endblock title %}
 {% block content %}
     <section class="search-content">
-        {% if keyword %}
+        {% if items %}
             <h2 class="mb-5">Product Categories</h2>
             <div class="row">
                 {% for item in items %}
@@ -10,7 +10,7 @@
                         <div class="card rounded mx-0" style=" width: 230px; height: 330px">
                             <img class="card-img" src="{{ item.image }}">
                             <div class="card-body">
-                                <h6 class="card-title"><a href="{% url 'productDetail' item.barcode %}">{{ item.name }}</a></h6>
+                                <h6 class="card-title"><a href="{% url 'product-detail' item.barcode %}">{{ item.name }}</a></h6>
                                 {% if item.grade == "None" %}
                                     <span class="badge badge-pill badge-dark">{{ item.grade }}</span>
                                 {% elif item.grade >= 80 %}
@@ -26,7 +26,9 @@
                 {% endfor %}
             </div>
         {% else %}
-            <h4>No products match your search!</h4>
+            <h3 class="my-3">No products match your search!</h3>
+            <button type="button" class="btn btn-outline-dark" onclick="location.href='{% url 'add-product'%}'">Add new product</button>
+
         {% endif %}
     </section>
 {% endblock content %}

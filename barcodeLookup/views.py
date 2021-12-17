@@ -4,6 +4,7 @@ from django.core.files.storage import FileSystemStorage
 from django.db.models import Count
 from pyzbar.pyzbar import decode
 from .models import *
+from .forms import *
 import requests
 import cv2
 import json
@@ -60,16 +61,14 @@ def productDetail(request, barcode):
         orderItem.save()
         return redirect("cart")
 
-    context = {"product": product, "data": data, "toxicIngredient": toxicIngredient, "totalIngredient": round((toxicIngredient.count(",") + 1)/45, 2)}
+    context = {"product": product, "data": data, "toxicIngredient": toxicIngredient, "totalIngredient": round((str(product.ingredient).count(",") + 1)/45, 2)}
 
     return render(request, 'productDetail.html', context)
 
 
 def searchProduct(request):
-    if request.method == "POST":
-        keyword = request.POST['searched']
-        items = Product.objects.filter(name__contains=keyword)
-        return render(request, 'searchResult.html', {"keyword": keyword, "items": items})
+    if request.method == "POST" and Product.objects.filter(name__contains=request.POST['searched']):
+        return render(request, 'searchResult.html', {"items": Product.objects.filter(name__contains=request.POST['searched'])})
     else:
         return render(request, 'searchResult.html')
 
@@ -85,7 +84,8 @@ def scanProduct(request):
         os.remove('media/' + filename)
         if Product.objects.filter(name__contains=data["title"]).exists():
             product = Product.objects.get(name=data["title"])
-            context = {"product": product, "data": data}
+            toxicIngredient = findToxicIngredient(str(product.ingredient))
+            context = {"product": product, "data": data, "toxicIngredient": toxicIngredient, "totalIngredient": round((str(product.ingredient).count(",") + 1) / 45, 2)}
             return render(request, 'scanProduct.html', context)
         else:
             return render(request, 'searchResult.html')
@@ -139,3 +139,15 @@ def brandDetail(request, brand):
     return render(request, "brandDetail.html", context)
 
 
+def addProduct(request):
+    productDB = Product.objects.all()
+
+    if request.method == "POST":
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            productForm = form.save(commit=False)
+            productForm.save()
+            return render(request, "index.html", {"form": form, "productDB": productDB})
+    else:
+        form = ProductForm()
+    return render(request, "newProduct.html", {"form": form, "productDB": productDB})
