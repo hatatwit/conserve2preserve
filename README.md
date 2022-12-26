@@ -1,5 +1,5 @@
 # conserve2preserve
-A web app is a GoodGuide-like that acts as a guide to all things that are good for you and good for the environment. Users can scan barcodes or browse by name to find products in a variety of categories, including food, drinks, health and beauty aids, pet food, body care and more. Each item is rated on a scale of 0 to 100 based on its ingredients, environmental impact and company ethics.
+A web app is a GoodGuide-like that acts as a guide to all things that are good for you and the environment. Users can scan barcodes or browse by name to find products in a variety of categories, including food, drinks, health and beauty aids, pet food, body care, and more. Each item is rated on a scale of 0 to 100 based on its ingredients, environmental impact, and company ethics.
 
 ## Installation
 
