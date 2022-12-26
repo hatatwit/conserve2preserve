@@ -20,7 +20,7 @@ $ python manage.py runserver
 https://user-images.githubusercontent.com/53331354/169591089-0d1046d2-15ea-4eaf-a9fe-c74361c8db8b.mp4
 
 ## Database Relationships
-https://drive.google.com/file/d/14g8-zKZwDN29Nkz_xQNY83tSosAUoGtc/view?usp=share_link
+static/image/data-relationships.png
 
 ## Build with
 Web technologies: HTML, CSS, Bootstrap, Python, Django 
