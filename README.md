@@ -23,7 +23,12 @@ https://user-images.githubusercontent.com/53331354/169591089-0d1046d2-15ea-4eaf-
 ![alt text](https://github.com/hatatwit/conserve2preserve/blob/master/static/image/data-relationships.png?raw=true)
 
 ## Build with
-Web technologies: HTML, CSS, Bootstrap, Python, Django 
+Web technologies: 
+* HTML
+* CSS
+* Bootstrap
+* Python
+* Django 
 
 APIs:
 * UPC Lookup API - Search barcode and find product information.
